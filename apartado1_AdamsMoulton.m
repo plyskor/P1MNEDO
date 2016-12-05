@@ -17,19 +17,19 @@ pasos=1000;
 %Llamamos al método de Adams-Moulton pasando los argumentos en orden
 [S,I,Z,R,t] = adamsMoulton(@modelo,pasos,ini,fin,S0,I0,Z0,R0,a,b,c,d); 
 
-%Construimos una gráfica, donde mostraremos las cuatro poblaciones y además
-%el valor sum, que es el cómputo total de individuos
-sum=S+I+Z+R;
+%Construimos una gráfica, donde mostraremos las dos poblaciones que
+%nos piden (S'z y Z's) y además también representaremos el valor sum,
+%que es el cómputo total de individuos
 figure(1);
 hold all;
+sum=S+I+Z+R;
 plot(S);
-plot(I);
 plot(Z);
-plot(R);
 plot(sum);
+
 %Etiquetamos la gráfica y listo
 title('Apartado 1.b: Método de Adams-Moulton (2 pasos)');
 xlabel('Nodos');
 ylabel('Cantidad');
-legend('Humanos','Infectados','Zombies','Muertos','Suma');
+legend('Humanos sanos','Zombies','Suma');
 hold all;

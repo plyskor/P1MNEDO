@@ -30,7 +30,6 @@ function [S,I,Z,R,VectorTiempoDiscreto] = adamsMoulton(funcion, pasos , start , 
 		enemasuno =[S(paso+1),I(paso+1),Z(paso+1),R(paso+1)] 
         %Iteramos Adams-Moulton hasta que se cumpla una condición de parada
 		for i = 1:max_iter 
-			
 			prevEnemasuno=enemasuno; 
             %hacemos el paso n+2
 			[matrizPasos(3,1),matrizPasos(3,2),matrizPasos(3,3),matrizPasos(3,4)]= funcion(enemasuno(1),enemasuno(2),enemasuno(3),enemasuno(4),a,b,c,d);

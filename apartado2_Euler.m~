@@ -22,25 +22,23 @@ for i=0:dias-1
    nextnodo=(i+1)*floor(pasos/dias)+1;
    %Aquí se aplica Euler
    [S(nodo:nextnodo),I(nodo:nextnodo),Z(nodo:nextnodo),R(nodo:nextnodo),t(nodo:nextnodo)] = euler(@modelo,floor(pasos/dias),inicio+i,inicio+i+1,S0,I0,Z0,R0,a,b,c,d);
-   %... Aquí sale el sol y hay pelea
-   I0=I(nextnodo)+S(nextnodo)/9;%Infectamos a un noveno de los sanos
-   S0=S(nextnodo)-S(nextnodo)/9;%y los quitamos del conteo de sanos
+   %... Aquí sale el sol
+   S0=S(nextnodo)-S(nextnodo)/9;
+   I0=I(nextnodo)+S(nextnodo)/9;
    Z0=Z(nextnodo)/3; %Matamos a dos tercios de zombies
-   R0=R(nextnodo)+2*Z(nextnodo)/3; %añadimos los zombies muertos al conteo de muertos
+   R0=R(nextnodo)+2*Z(nextnodo)/3; %Los zombis que han muerto se añaden a los muertos.
 end
-%Construimos una gráfica, donde mostraremos las dos poblaciones que
-%nos piden (S'z y Z's) y además también representaremos el valor sum,
-%que es el cómputo total de individuos
+
 figure(1);
 hold all;
-sum=S+I+Z+R;
+n=S+I+Z+R;
 plot(S);
+plot(I);
 plot(Z);
-plot(sum);
-
-%Etiquetamos la gráfica y listo
-title('Apartado 2.a: Método de Euler');
-xlabel('Nodos');
-ylabel('Cantidad');
-legend('Humanos sanos','Zombies','Suma');
+plot(R);
+plot(n);
+title('Solucion numerica');
+xlabel('x');
+ylabel('y');
+legend('Humanos','Infectados','Zombies','Muertos','Suma');
 hold all;
