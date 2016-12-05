@@ -1,3 +1,21 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% FUNCION ADAMS-MOULTON 2 PASOS
+%
+% u = funcion(t,u)
+% u(t0) = u0
+% pasos : numero de pasos en los que dividimos el intervalo de integracion
+% start : tiempo inicial
+% T : tiempo final
+% S0: valor inicial de S
+% Z0: valor inicial de Z
+% R0: valor inicial de muertos
+% a,b,c: ctes
+%
+% Variables de Salida:
+% u: matriz de lenght(u0) x N que contiene la solucion
+% t: vector de tiempos
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 function [S,I,Z,R,VectorTiempoDiscreto] = adamsMoulton(funcion, pasos , start , stop , S0, I0, Z0, R0, a, b, c, d)
 	%Calculamos el ancho de paso
     h = (stop-start)/pasos;
@@ -31,17 +49,16 @@ function [S,I,Z,R,VectorTiempoDiscreto] = adamsMoulton(funcion, pasos , start , 
         %Iteramos Adams-Moulton hasta que se cumpla una condición de parada
 		for i = 1:max_iter 
 			
-			prevEnemasuno=enemasuno; 
-            %hacemos el paso n+2
-			[matrizPasos(3,1),matrizPasos(3,2),matrizPasos(3,3),matrizPasos(3,4)]= funcion(enemasuno(1),enemasuno(2),enemasuno(3),enemasuno(4),a,b,c,d);
-			enemasuno=[S(paso+1),I(paso+1),Z(paso+1),R(paso+1)]+h/12*(5*matrizPasos(3,:)+8*matrizPasos(2,:)-matrizPasos(1,:)); 
-            %Comprobamos que no hemos sido ya suficientemente finos
-			if (abs(norm(enemasuno-prevEnemasuno,1))<tol);
-				%si lo hemos sido paramos, si no, vuelta
-                break;
+			prevEnemasuno=enemasuno; %guardamos para comparar
+
+			[matrizPasos(3,1),matrizPasos(3,2),matrizPasos(3,3),matrizPasos(3,4)]= funcion(enemasuno(1),enemasuno(2),enemasuno(3),enemasuno(4),a,b,c,d); %paso n+2
+
+			enemasuno=[S(paso+1),I(paso+1),Z(paso+1),R(paso+1)]+h/12*(5*matrizPasos(3,:)+8*matrizPasos(2,:)-matrizPasos(1,:)); %aplicamos al joven Adams
+
+			if (abs(norm(enemasuno-prevEnemasuno,1))<tol) %%Si la diferencia entre los dos ultimos pasos es pequeña, ya paramos
+				break;
 			end
-        end
-        %vamos metiendo los valores en los vectores solucion
+		end
 		S(paso+2)=enemasuno(1);
         I(paso+2)=enemasuno(2);
 		Z(paso+2)=enemasuno(3);

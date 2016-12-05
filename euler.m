@@ -1,7 +1,7 @@
 function [S,I,Z,R,VectorTiempoDiscreto] = euler(funcion, pasos, start, stop, S0, I0, Z0, R0, a, b, c, d)	
     %Calculamos el ancho de paso
     h = (stop-start)/pasos;                 
-    %Construimos un vector con el tiempo discretizado en pasos, que sirve tambien
+    %Construimos un vector con el tiempo discretizado en nodos, que sirve tambien
     %para saber el tamaño de los vectores solucion
 	VectorTiempoDiscreto = [start:h:stop];
     %Construimos los vectores donde se devuelven los valores
