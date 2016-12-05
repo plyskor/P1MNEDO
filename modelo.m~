@@ -1,0 +1,12 @@
+%Sistema de EDO's
+%Aquí está el sistema de ecuaciones diferenciales del sistema dinámico 
+%que modela nuestro universo. Las cuatro ecuaciones representan
+%respectivamente la variación de las cuatro poblaciones (Humanos Sanos,
+%Humanos Infectados, Zombies, Muertos).
+function [dS,dI,dZ,dR]=modelo(S,I,Z,R,a,b,c,d)
+    dS=-b*S*Z;          %Poblacion Sana
+    dI=b*S*Z-d*I;       %Población Infectada
+    dZ=d*I+c*R-a*S*Z;   %Población Zombie
+    dR=a*S*Z-c*R;       %Población Muerta susceptible de zombificación.
+end
+
